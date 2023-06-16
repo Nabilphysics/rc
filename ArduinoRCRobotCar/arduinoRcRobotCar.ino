@@ -115,28 +115,28 @@ void loop() {
   }
  // Channel 2(Backward) Map value considering deadzone. 
   if (ch2PulseDuration < (ch2MidValue - ch2DeadZoneValue)) {
-    linearPwm = - map(ch2PulseDuration, ch2MidValue, ch2LowestValue,  0, 255); // - minus sign to reverse the robot in next step. It can be implemented diffrently
+    linearPwm = - map(ch2PulseDuration, ch2MidValue, ch2LowestValue,  0, 255); // - minus sign to reverse the robot in next step. It can be implemented differently
   }
   
-  // Dead Zone Implementaion. If Channel 2 stick position within Deadzone then it will consider as zero and will stop motors. 
-  if ((ch2PulseDuration < (ch2MidValue + ch2DeadZoneValue)) && (ch2PulseDuration > (ch2MidValue - ch2DeadZoneValue))) {
+  // Dead Zone Implementation. If Channel 2 stick position within Deadzone, it will be considered zero and will stop motors. 
+  if ((ch2PulseDuration < (ch2MidValue + ch2DeadZoneValue)) && (ch2PulseDuration > (ch2MidValue - ch2DeadZoneValue))) { //Have to implement differently bcz this condition will satisfy during a sharp turn
     linearPwm = 0;
-    rightMotorAppliedPwm = 0;
-    leftMotorAppliedPwm = 0;
+    //rightMotorAppliedPwm = 0; //have to check
+    //leftMotorAppliedPwm = 0;  //have to check
   }
 // ************************ End- Channel 2 (Forward-Backward) con *****************************************************************************
 
-// ************************ Start- Channel 1 (Forward-Backward) considering deadzone *****************************************************************************
+// ************************ Start- Channel 1 (Forward-Backward) considering dead zone *****************************************************************************
   // Channel 1(Right) Map value considering deadzone. 
   if (ch1PulseDuration > (ch1MidValue + ch1DeadZoneValue)) {  // channel 1 right left
     steeringPwm = map(ch1PulseDuration, ch1MidValue, ch1HighestValue, 0, 255);
   }
   // Channel 1(Left) Map value considering deadzone.
   if (ch1PulseDuration < (ch1MidValue - ch1DeadZoneValue)) {  // channel 1 right left
-    steeringPwm = - map(ch1PulseDuration, ch1MidValue, ch1LowestValue, 0, 255); // - minus sign to reverse the steering in the next step. It can be implemented diffrently
+    steeringPwm = - map(ch1PulseDuration, ch1MidValue, ch1LowestValue, 0, 255); // - minus sign to reverse the steering in the next step. It can be implemented differently
   }
 
-  // Dead Zone Implementaion. If Channel 2 stick position within Deadzone then it will consider as zero and will stop motors. 
+  // Dead Zone Implementation. If Channel 1 sticks position within Deadzone, it will be considered zero and will not steer. 
   if ((ch1PulseDuration < (ch1MidValue + ch1DeadZoneValue)) && (ch1PulseDuration > (ch1MidValue - ch1DeadZoneValue))) {
     steeringPwm = 0;
   }
