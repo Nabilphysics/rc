@@ -121,8 +121,8 @@ void loop() {
   // Dead Zone Implementation. If Channel 2 stick position within Deadzone, it will be considered zero and will stop motors. 
   if ((ch2PulseDuration < (ch2MidValue + ch2DeadZoneValue)) && (ch2PulseDuration > (ch2MidValue - ch2DeadZoneValue))) { //Have to implement differently bcz this condition will satisfy during a sharp turn
     linearPwm = 0;
-    //rightMotorAppliedPwm = 0; //have to check
-    //leftMotorAppliedPwm = 0;  //have to check
+    rightMotorAppliedPwm = 0; //have to check
+    leftMotorAppliedPwm = 0;  //have to check
   }
 // ************************ End- Channel 2 (Forward-Backward) con *****************************************************************************
 
